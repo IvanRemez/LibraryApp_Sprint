@@ -1,0 +1,52 @@
+
+ -- TOOLS
+
+ UI
+    - Selenium --> Automate Browser
+
+ Database
+    - JDBC --> Java SE 8 (We did not add any dependency for it)
+    - MYSQL -> Add MySQL Driver as dependency
+    - POSTGRESQL -> Add POSTGRESQL Driver as dependency
+    - ORACLE -> Add ORACLE Driver as dependency
+
+    - MANUAL
+        - Have IDEA like Intellij , SQL Developer, DBeaver etc
+ API
+    - Rest Assured --> API Automation --> Add a dependency to use it
+    - Postman      --> API Testing Tool
+                   --> Manual
+                   --> Automation
+ --- FRAMEWORK
+
+    -- Hooks
+         Manages layers before test is starting
+          - @ui  ---> It manages UI related preparations
+          - @db  ---> It manages DB related preparations (Open database conn || Close database conn )
+          - @api ---> It manages API related preparations
+
+    -- Environmental Variables
+
+         To hide sensitive data we implemented all secret datas like credentials etc into
+         Environmental Variables.With the help that we are eligible ready values from
+         System.getEnv("KEY") and it is returning value about related KEY
+
+         System.getEnv("TEACHER_EMAIL") --> blyst6@si.edu
+
+    -- DB_Util
+          It is a utiliy class that includes many useful methods to connect || read data
+          from database
+
+          DB_Util.createConnection()
+          DB_Util.createConnection(String url,String username,String password)
+
+    -- BookitUtils --> API_Util
+
+        It is a set of reusable method to manage api request like DB_Util.
+        For example to login and get a token we created couple reusable methods to manage
+
+            - getTokenByRole
+            - getToken
+            - returnCredentials
+            - createRandomData
+            - ......
