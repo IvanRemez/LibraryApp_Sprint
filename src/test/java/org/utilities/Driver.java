@@ -35,11 +35,11 @@ public class Driver {
                 case "remote-chrome":
                     try {
                         // assign your grid server address
-                        String gridAddress = "174.129.57.20";
+                        String gridAddress = "100.29.38.166";
                         URL url = new URL("http://" + gridAddress + ":4444/wd/hub");
-                        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-                        desiredCapabilities.setBrowserName("chrome");
-                        driverPool.set(new RemoteWebDriver(url, desiredCapabilities));
+                        ChromeOptions chromeOptions = new ChromeOptions();
+                        chromeOptions.addArguments("--start-maximized");
+                        driverPool.set(new RemoteWebDriver(url, chromeOptions));
                         //driverPool.set(new RemoteWebDriver(new URL("http://0.0.0.0:4444/wd/hub"),desiredCapabilities));
 
                     } catch (Exception e) {

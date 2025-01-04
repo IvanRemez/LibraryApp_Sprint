@@ -1,7 +1,7 @@
 package org.steps;
 
 import org.utilities.ConfigurationReader;
-import org.utilities.DB_Util;
+import org.utilities.DB_Utils;
 import org.utilities.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -15,48 +15,46 @@ import java.time.Duration;
 
 public class Hooks {
 
-	@Before()
-	public void setBaseURI() {
-		System.out.println("----- Setting BaseURI");
-		RestAssured.baseURI= ConfigurationReader.getProperty("base_url");
-	}
-	@After()
-	public void endScenario(Scenario scenario){
-		System.out.println("Test Result for "+scenario.getName()+" "+scenario.getStatus());
-	}
+    @Before()
+    public void setBaseURI() {
+        System.out.println("----- Setting BaseURI");
+        RestAssured.baseURI = ConfigurationReader.getProperty("base_url");
+    }
 
-	@Before("@db")
-	public void dbHook() {
-		System.out.println("----- creating database connection");
-		DB_Util.createConnection();
-	}
+    @After()
+    public void endScenario(Scenario scenario) {
+        System.out.println("Test Result for " + scenario.getName() + " " + scenario.getStatus());
+    }
 
-	@After("@db")
-	public void afterDbHook() {
-		System.out.println("----- closing database connection");
-		DB_Util.destroy();
+    @Before("@db")
+    public void dbHook() {
+        System.out.println("----- creating database connection");
+        DB_Utils.createConnection();
+    }
 
-	}
-	
-	@Before("@ui")
-	public void setUp() {
-		Driver.get().get(ConfigurationReader.getProperty("url"));
-		Driver.get().manage().window().maximize();
-		Driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    @After("@db")
+    public void afterDbHook() {
+        System.out.println("----- closing database connection");
+        DB_Utils.destroy();
 
-	}
-	
-	@After("@ui")
-	public void tearDown(Scenario scenario) {
-		if (scenario.isFailed()) {
-			final byte[] screenshot = ((TakesScreenshot) Driver.get()).getScreenshotAs(OutputType.BYTES);
-			scenario.attach(screenshot, "image/png","screenshot");
-		}
-		Driver.closeDriver();
-	}
-	
-	
-	
-	
-	
+    }
+
+    @Before("@ui")
+    public void setUp() {
+        Driver.get().get(ConfigurationReader.getProperty("url"));
+        Driver.get().manage().window().maximize();
+        Driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+    }
+
+    @After("@ui")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            final byte[] screenshot = ((TakesScreenshot) Driver.get()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", "screenshot");
+        }
+        Driver.closeDriver();
+    }
+
+
 }

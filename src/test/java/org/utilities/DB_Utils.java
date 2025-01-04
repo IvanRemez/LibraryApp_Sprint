@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DB_Util {
+public class DB_Utils {
 
     // declaring at class level so all methods can access
     private static Connection con;
@@ -40,13 +40,13 @@ public class DB_Util {
      */
     public static void createConnection() {
 
-        String url = ConfigurationReader.getProperty("dbUrl");
+        String url = ConfigurationReader.getProperty("library2.db.url");
 
         // String username = ConfigurationReader.getProperty("dbUsername") ;
-        String username = System.getenv("dbUsername");
+        String username = System.getenv("library2.db.username");
 
         // String password = ConfigurationReader.getProperty("dbPassword") ;
-        String password = System.getenv("dbPassword");
+        String password = System.getenv("library2.db.password");
 
         createConnection(url, username, password);
 
