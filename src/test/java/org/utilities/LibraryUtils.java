@@ -36,10 +36,29 @@ public class LibraryUtils {
         return credentials;
     }
 
+    public static String getToken(String email, String password) {
+
+        JsonPath jp = RestAssured.given()
+//                .log().uri()
+                .contentType(ContentType.URLENC)
+                .accept(ContentType.JSON)
+                .formParam("email", email)
+                .formParam("password", password)
+                .when()
+                .post("/login")
+                .prettyPeek()
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract().jsonPath();
+
+        return jp.getString("token");
+    }
+
     public static String getTokenByRole(String role) {
 
         JsonPath jp = RestAssured.given()
-                .log().all()
+                .log().uri()
                 .contentType(ContentType.URLENC)
                 .accept(ContentType.JSON)
                 .formParams(returnCredentials(role))
@@ -72,14 +91,21 @@ public class LibraryUtils {
                 break;
 
             case "user":
-
+                dataMap.put("full_name", faker.name().fullName());
+                dataMap.put("email", faker.name().lastName() + faker.number().numberBetween(1, 99) + "@library");
+                dataMap.put("password", "NorrisChuck");
+                dataMap.put("user_group_id", 3);
+                dataMap.put("status", "ACTIVE");
+                dataMap.put("start_date", "2020-01-01");
+                dataMap.put("end_date", "2023-01-01");
+                dataMap.put("address", "123 TheWay");
                 break;
 
             default:
                 throw new RuntimeException("INVALID Map Type");
         }
-
         System.out.println("dataMap = " + dataMap);
+
         return dataMap;
     }
 }
