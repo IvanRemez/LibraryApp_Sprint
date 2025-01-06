@@ -69,19 +69,6 @@ public class LibraryUtils {
         return getToken(email, password);
     }
 
-    public static ValidatableResponse decodeToken(String token) {
-
-        return RestAssured.given()
-                .accept(ContentType.JSON)
-                .contentType(ContentType.URLENC)
-                .formParam("token", token)
-                .when()
-                .post("/decode")
-                .then()
-                .statusCode(200)
-                .contentType(ContentType.JSON.withCharset("utf-8"));
-    }
-
     public static Map<String, Object> randomDataMap(String mapType) {
 
         Faker faker = new Faker();

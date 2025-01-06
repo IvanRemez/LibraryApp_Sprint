@@ -102,7 +102,7 @@ public class StepDefs {
         thenPart = response.then();
         jp = response.then().extract().jsonPath();
 
-        response.prettyPrint();
+//        response.prettyPrint();
     }
 
     @When("I send POST request to {string} endpoint")
@@ -112,7 +112,7 @@ public class StepDefs {
         thenPart = response.then();
         jp = response.then().extract().jsonPath();
 
-        response.prettyPrint();
+//        response.prettyPrint();
 
         if (POST_endpoint.contains("book")) {
 
