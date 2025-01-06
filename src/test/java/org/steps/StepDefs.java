@@ -34,11 +34,13 @@ public class StepDefs {
     String expectedPathParamValue;
     int ID;
     Map<String, Object> dataMap_API;
+    String token;
 
     @Given("I logged Library api as a {string}")
     public void i_logged_library_api_as_a(String role) {
 
-        givenPart.header("x-library-token", LibraryUtils.getTokenByRole(role));
+        token = LibraryUtils.getTokenByRole(role);
+        givenPart.header("x-library-token", token);
     }
 
     @Given("Accept header is {string}")
@@ -78,6 +80,19 @@ public class StepDefs {
     public void i_navigate_to_page(String page) {
 
         basePage.navigateTo(page);
+    }
+
+    @Given("I logged Library api with credentials {string} and {string}")
+    public void i_logged_library_api_with_credentials_and(String email, String password) {
+
+        token = LibraryUtils.getToken(email, password);
+        givenPart.header("x-library-token", token);
+    }
+
+    @Given("I send token information as request body")
+    public void i_send_token_information_as_request_body() {
+
+        givenPart.formParam("token", token);
     }
 
     @When("I send GET request to {string} endpoint")
@@ -171,21 +186,21 @@ public class StepDefs {
 
         assertEquals(String.valueOf(ID), dataMap_DB.get("id"));
 
-    // DB fields:
+        // DB fields:
         String name_DB = dataMap_DB.get("name");
         String isbn_DB = dataMap_DB.get("isbn");
         String year_DB = dataMap_DB.get("year");
         String author_DB = dataMap_DB.get("author");
         String description_DB = dataMap_DB.get("description");
 
-    // API fields:
+        // API fields:
         String name_API = (String) dataMap_API.get("name");
         String isbn_API = (String) dataMap_API.get("isbn");
         String year_API = (String) dataMap_API.get("year");
         String author_API = (String) dataMap_API.get("author");
         String description_API = (String) dataMap_API.get("description");
 
-    // Assertions:
+        // Assertions:
         assertEquals(name_API, name_DB);
         assertEquals(isbn_API, isbn_DB);
         assertEquals(year_API, year_DB);
@@ -196,7 +211,7 @@ public class StepDefs {
         BrowserUtils.waitForVisibility(booksPage.searchInput, 3).sendKeys(name_API);
         BrowserUtils.waitForVisibility(booksPage.editBook(name_API), 3).click();
 
-    // UI fields:
+        // UI fields:
         String name_UI = BrowserUtils.waitForVisibility(booksPage.bookName, 3).getAttribute("value");
         String isbn_UI = booksPage.bookIsbn.getAttribute("value");
         String year_UI = booksPage.bookYear.getAttribute("value");
@@ -207,7 +222,7 @@ public class StepDefs {
 //        System.out.println("isbn_API = " + isbn_API);
 //        System.out.println("isbn_DB = " + isbn_DB);
 
-    // Assertions:
+        // Assertions:
         assertEquals(name_API, name_UI);
         assertEquals(isbn_API, isbn_UI);
         assertEquals(year_API, year_UI);
@@ -225,21 +240,21 @@ public class StepDefs {
 
         assertEquals(String.valueOf(ID), dataMap_DB.get("id"));
 
-    // DB fields:
+        // DB fields:
         String full_name_DB = dataMap_DB.get("full_name");
         String email_DB = dataMap_DB.get("email");
 //        String user_group_id_DB = dataMap_DB.get("user_group_id");
         String status_DB = dataMap_DB.get("status");
         String address_DB = dataMap_DB.get("address");
 
-    // API fields:
+        // API fields:
         String full_name_API = (String) dataMap_API.get("full_name");
         String email_API = (String) dataMap_API.get("email");
 //        String user_group_id_API = (String) dataMap_API.get("user_group_id");
         String status_API = (String) dataMap_API.get("status");
         String address_API = (String) dataMap_API.get("address");
 
-    // Assertions:
+        // Assertions:
         assertEquals(full_name_API, full_name_DB);
         assertEquals(email_API, email_DB);
 //        assertEquals(user_group_id_API, user_group_id_DB);

@@ -4,8 +4,10 @@ import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.ValidatableResponse;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class LibraryUtils {
@@ -38,12 +40,15 @@ public class LibraryUtils {
 
     public static String getToken(String email, String password) {
 
+        Map<String, String> credentials = new LinkedHashMap<>();
+        credentials.put("email", email);
+        credentials.put("password", password);
+
         JsonPath jp = RestAssured.given()
 //                .log().uri()
                 .contentType(ContentType.URLENC)
                 .accept(ContentType.JSON)
-                .formParam("email", email)
-                .formParam("password", password)
+                .formParams(credentials)
                 .when()
                 .post("/login")
                 .prettyPeek()
@@ -57,20 +62,24 @@ public class LibraryUtils {
 
     public static String getTokenByRole(String role) {
 
-        JsonPath jp = RestAssured.given()
-                .log().uri()
-                .contentType(ContentType.URLENC)
+        Map<String, String> roleCredentials = returnCredentials(role);
+        String email = roleCredentials.get("email");
+        String password = roleCredentials.get("password");
+
+        return getToken(email, password);
+    }
+
+    public static ValidatableResponse decodeToken(String token) {
+
+        return RestAssured.given()
                 .accept(ContentType.JSON)
-                .formParams(returnCredentials(role))
+                .contentType(ContentType.URLENC)
+                .formParam("token", token)
                 .when()
-                .post("/login")
-                .prettyPeek()
+                .post("/decode")
                 .then()
                 .statusCode(200)
-                .contentType(ContentType.JSON)
-                .extract().jsonPath();
-
-        return jp.getString("token");
+                .contentType(ContentType.JSON.withCharset("utf-8"));
     }
 
     public static Map<String, Object> randomDataMap(String mapType) {
