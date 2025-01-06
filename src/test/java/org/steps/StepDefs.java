@@ -216,8 +216,8 @@ public class StepDefs {
         String name_UI = BrowserUtils.waitForVisibility(booksPage.bookName, 3).getAttribute("value");
         String isbn_UI = booksPage.bookIsbn.getAttribute("value");
         String year_UI = booksPage.bookYear.getAttribute("value");
-//        String author_UI = booksPage.bookAuthor.getAttribute("value");
-//        String description_UI = booksPage.bookDescription.getAttribute("value");
+        String author_UI = booksPage.bookAuthor.getAttribute("value");
+        String description_UI = booksPage.bookDescription.getAttribute("value");
 
 //        System.out.println("isbn_UI = " + isbn_UI);
 //        System.out.println("isbn_API = " + isbn_API);
@@ -227,8 +227,8 @@ public class StepDefs {
         assertEquals(name_API, name_UI);
         assertEquals(isbn_API, isbn_UI);
         assertEquals(year_API, year_UI);
-//        assertEquals(author_API, author_UI);
-//        assertEquals(description_API, description_UI);
+        assertEquals(author_API, author_UI);
+        assertEquals(description_API, description_UI);
     }
 
     @Then("created user information should match with Database")
@@ -266,8 +266,6 @@ public class StepDefs {
 
     @Then("created user should be able to login Library UI")
     public void created_user_should_be_able_to_login_library_ui() {
-
-        Driver.get().get(ConfigurationReader.getProperty("url"));
 
         loginPage.login((String) dataMap_API.get("email"), (String) dataMap_API.get("password"));
 

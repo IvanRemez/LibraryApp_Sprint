@@ -20,11 +20,11 @@ public class LibraryUtils {
         switch (role) {
 
             case "librarian":
-                email = System.getenv("librarian_username");
+                email = ConfigurationReader.getProperty("librarian_username");
                 password = System.getenv("librarian_password");
                 break;
             case "student":
-                email = System.getenv("student_username");
+                email = ConfigurationReader.getProperty("student_username");
                 password = System.getenv("student_password");
                 break;
             default:
@@ -95,6 +95,21 @@ public class LibraryUtils {
                 dataMap.put("start_date", "2020-01-01");
                 dataMap.put("end_date", "2023-01-01");
                 dataMap.put("address", "123 TheWay");
+
+//                switch (userType){
+//                    case "admin":
+//                        user.put("user_group_id",1);
+//                        break;
+//                    case "librarian":
+//                        user.put("user_group_id",2);
+//                        break;
+//                    case "student":
+//                        user.put("user_group_id",3);
+//                        break;
+//                    default:
+//                        throw new RuntimeException("Invalid User Type Entry :\n>> " + userType + " <<");
+//
+//                }
                 break;
 
             default:

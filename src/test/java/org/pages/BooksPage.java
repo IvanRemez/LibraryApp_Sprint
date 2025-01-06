@@ -24,10 +24,12 @@ public class BooksPage extends BasePage {
     @FindBy(name = "year")
     public WebElement bookYear;
 
-    @FindBy(name = "author")
+//    @FindBy(name = "author")
+    @FindBy(xpath = "//form[@id='edit_book_form']//input[@name='author']")
     public WebElement bookAuthor;
 
-    @FindBy(name = "description")
+//    @FindBy(name = "description")
+    @FindBy(xpath = "//form[@id='edit_book_form']//*[@name='description']")
     public WebElement bookDescription;
 
     @FindBy(xpath = "//td/a")
