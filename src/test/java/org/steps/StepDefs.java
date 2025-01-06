@@ -209,7 +209,7 @@ public class StepDefs {
 
 // UI Check:
         booksPage.searchInput.sendKeys(name_API);
-        BrowserUtils.waitFor(3);
+        BrowserUtils.waitFor(1);
         BrowserUtils.waitForClickablility(booksPage.editBook, 3).click();
 
         // UI fields:
