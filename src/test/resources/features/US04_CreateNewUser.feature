@@ -1,4 +1,5 @@
 @wip @ui @db
+@regression
 Feature: As a librarian, I want to create a new user using add_user endpoint so that I can add new users to the
   system.
 

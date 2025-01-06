@@ -1,3 +1,4 @@
+@regression
 @wip
 Feature: As a librarian, I want to retrieve all users from get_all_users endpoint so that I can display them in my
   application.
