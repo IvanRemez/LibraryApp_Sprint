@@ -6,7 +6,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"json:target/cucumber.json",
+        plugin = {"pretty",
+                "json:target/cucumber.json",
                 "html:target/cucumber-report.html",
                 "me.jvt.cucumber.report.PrettyReports:target/cucumber",
                 "rerun:target/rerun.txt"
@@ -14,8 +15,8 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "org/steps",
         dryRun = false,
-        tags = "@smoke",
-        publish = true
+        tags = "@regression",
+        publish = false
 )
 public class CukesRunner {
 }

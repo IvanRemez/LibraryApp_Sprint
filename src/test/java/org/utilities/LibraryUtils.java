@@ -24,11 +24,11 @@ public class LibraryUtils {
 
             case "librarian":
                 email = ConfigurationReader.getProperty("librarian_username");
-                password = System.getenv("librarian_password");
+                password = ConfigurationReader.getProperty("librarian_password");
                 break;
             case "student":
                 email = ConfigurationReader.getProperty("student_username");
-                password = System.getenv("student_password");
+                password = ConfigurationReader.getProperty("student_password");
                 break;
             default:
                 throw new RuntimeException("INVALID User Role");

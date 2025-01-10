@@ -43,10 +43,10 @@ public class DB_Utils {
         String url = ConfigurationReader.getProperty("library2.db.url");
 
         // String username = ConfigurationReader.getProperty("dbUsername") ;
-        String username = System.getenv("library2.db.username");
+        String username = ConfigurationReader.getProperty("library2.db.username");
 
         // String password = ConfigurationReader.getProperty("dbPassword") ;
-        String password = System.getenv("library2.db.password");
+        String password = ConfigurationReader.getProperty("library2.db.password");
 
         createConnection(url, username, password);
 
