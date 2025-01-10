@@ -145,7 +145,7 @@ public class StepDefs {
     @Then("{string} field should not be null")
     public void field_should_not_be_null(String path) {
 
-        thenPart.body(path, Matchers.notNullValue());
+//        thenPart.body(path, Matchers.notNullValue());
 
         assertNotNull(jp.getString(path));
     }

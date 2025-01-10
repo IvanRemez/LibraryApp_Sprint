@@ -377,7 +377,7 @@ public class DB_Utils {
         } catch (Exception e) {
             System.out.println("ERROR OCCURRED WHILE getRowMap " + e.getMessage());
         } finally {
-            resetCursor();
+//            resetCursor();
         }
 
 
